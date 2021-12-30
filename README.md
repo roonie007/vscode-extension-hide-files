@@ -5,10 +5,12 @@
 ## Features
 
 - **Hide file(s) or folder(s)**
-  - `Right Click -> Hide` (works on one or multiples files or folders)
-  - Hidden files or folders will be shown in the **Hidden files** treeview
+
+  - Select one or multiple files/folders and `Right Click -> Hide`
+
 - **Show back file/folder**
-  - Simply select the file or folder you wish to restore from the Hidden files treeview by `Left click` on it
+  - The **HIDDEN FILES treeview** displays all of your hidden files and folders.
+  - Simply select the file or folder you wish to restore from the **HIDDEN FILES treeview** by `Left click` on it
 
 ![image](./src/assets/demo.gif)
 
