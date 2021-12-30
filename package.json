@@ -1,7 +1,7 @@
 {
   "name": "hide-files",
   "displayName": "Hide files",
-  "description": "Exclude files that are only occasionally used from being displayed in the explorer.",
+  "description": "Exclude files that are occasionally used from being displayed in the explorer",
   "version": "1.0.0",
   "engines": {
     "vscode": "^1.63.0"
