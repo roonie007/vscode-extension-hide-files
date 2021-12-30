@@ -102,5 +102,6 @@
   "repository": {
     "url": "https://github.com/roonie007/vscode-extension-hide-files"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "icon": "./src/assets/icon.png"
 }
