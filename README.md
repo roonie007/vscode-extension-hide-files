@@ -12,7 +12,7 @@
   - The **HIDDEN FILES treeview** displays all of your hidden files and folders.
   - Simply select the file or folder you wish to restore from the **HIDDEN FILES treeview** by `Left click` on it
 
-![image](./src/assets/demo.gif)
+![image](./resources/demo.gif)
 
 ## Release Notes
 
