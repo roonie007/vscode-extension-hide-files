@@ -11,20 +11,24 @@ export const workspaceFilesConfiguration = (): WorkspaceConfiguration => {
   );
 };
 
-export const saveDefaultExclude = () => {
-  const exclude = workspaceFilesConfiguration().get("exclude") as Record<
-    string,
-    boolean
-  >;
+export const saveDefaultExclude = (calculateDefaultExclude = true) => {
+  if (calculateDefaultExclude) {
+    const exclude = workspaceFilesConfiguration().get("exclude") as Record<
+      string,
+      boolean
+    >;
 
-  const excluded = getExludedFiles();
-  for (const key in exclude) {
-    if (excluded.includes(key) === false) {
-      defaultExclude[key] = true;
+    const excluded = getExludedFiles();
+    for (const key in exclude) {
+      if (excluded.includes(key) === false) {
+        defaultExclude[key] = true;
+      }
     }
-  }
 
-  workspaceFilesConfiguration().update("exclude", exclude);
+    workspaceFilesConfiguration().update("exclude", exclude);
+  } else {
+    workspaceFilesConfiguration().update("exclude", defaultExclude);
+  }
 };
 
 export const getConfig = (): WorkspaceConfiguration => {
@@ -42,14 +46,10 @@ export const updateFilesView = () => {
   }
 
   workspaceFilesConfiguration().update("exclude", exclude);
-  refresh();
 };
-export const saveExcludeFiles = (files: Array<string>, updateView = true) => {
+export const saveExcludeFiles = (files: Array<string>) => {
   getConfig().update("files", files);
-
-  if (updateView) {
-    updateFilesView();
-  }
+  updateFilesView();
 };
 export const includeFile = (relativePath: string) => {
   const files = getExludedFiles();

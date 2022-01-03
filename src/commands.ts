@@ -15,14 +15,24 @@ export const hide = (...args: [VsCodeFile, Array<VsCodeFile>]): void => {
   filesToExclude.unshift(firstFile.path);
 
   excludeFiles(filesToExclude);
+  refresh();
 };
 
 export const show = (fileRelativePath: string): void => {
   includeFile(fileRelativePath);
+  refresh();
 };
 
 export const refresh = (): void => {
-  hiddenFilesProvider.refresh();
+  setTimeout(() => {
+    if (hiddenFilesProvider) {
+      // Refresh HIDDEN FILES view
+      hiddenFilesProvider.refresh();
+
+      // Refresh EXPLORER view
+      commands.executeCommand("workbench.files.action.refreshFilesExplorer");
+    }
+  }, 1000);
 };
 
 export const registerCommands = (context: ExtensionContext) => {

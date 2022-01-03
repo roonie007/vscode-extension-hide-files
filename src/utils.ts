@@ -1,9 +1,20 @@
-import { workspace, window, OutputChannel, ExtensionContext } from "vscode";
+import {
+  workspace,
+  window,
+  OutputChannel,
+  ExtensionContext,
+  RelativePattern,
+} from "vscode";
 
 import * as fs from "fs";
 import { HiddenFilesProvider } from "./HiddenFilesProvider";
-import { registerCommands } from "./commands";
-import { getExludedFiles, saveDefaultExclude } from "./config";
+import { refresh, registerCommands } from "./commands";
+import {
+  getExludedFiles,
+  saveDefaultExclude,
+  saveExcludeFiles,
+} from "./config";
+import { join } from "path";
 
 export let hiddenFilesProvider: HiddenFilesProvider;
 let uConsole: OutputChannel;
@@ -26,11 +37,42 @@ export const isDirectory = (path: string) => {
   return fs.statSync(path).isDirectory();
 };
 
-export const init = (context: ExtensionContext) => {
-  saveDefaultExclude();
+export const resetSettings = (fullReset = true) => {
+  saveDefaultExclude(fullReset);
 
+  const excludedFiles = getExludedFiles();
+  if (excludedFiles.length === 0) {
+    saveExcludeFiles([]);
+  } else {
+    $log(`Excluded files => ${JSON.stringify(excludedFiles, null, 2)}`);
+  }
+};
+
+export const init = (context: ExtensionContext) => {
   hiddenFilesProvider = new HiddenFilesProvider();
   registerCommands(context);
 
-  $log(`Excluded files => ${JSON.stringify(getExludedFiles(), null, 2)}`);
+  resetSettings();
+
+  workspace.onDidDeleteFiles((e) => {
+    let shouldReset = false;
+    for (const { path } of e.files) {
+      if (
+        path.endsWith(".vscode/settings.json") ||
+        path.endsWith(".vscode/") ||
+        path.endsWith(".vscode")
+      ) {
+        shouldReset = true;
+        break;
+      }
+    }
+
+    setTimeout(() => {
+      if (shouldReset) {
+        resetSettings(false);
+      }
+
+      refresh();
+    }, 1000);
+  });
 };

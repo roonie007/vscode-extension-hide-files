@@ -1,4 +1,5 @@
 import { window, ExtensionContext } from "vscode";
+import { saveDefaultExclude } from "./config";
 import { init, hiddenFilesProvider } from "./utils";
 
 export function activate(context: ExtensionContext) {
@@ -10,4 +11,6 @@ export function activate(context: ExtensionContext) {
   });
 }
 
-export function deactivate() {}
+export function deactivate() {
+  saveDefaultExclude();
+}
