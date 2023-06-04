@@ -20,16 +20,21 @@ If the file you are trying to hide is already open et being displayed, it will b
 
 ## Release Notes
 
+### 1.0.3
+
+- refactor: add delay before updating files view
+- chore: Clean up unecessary code
+
 ### 1.0.2
 
-Feat: Force refresh when Hide/Show command is called
-Fix: Files do not hide sometimes
-Doc: Updated Demo
-Doc: Added Known issue(s) section
+- Feat: Force refresh when Hide/Show command is called
+- Fix: Files do not hide sometimes
+- Doc: Updated Demo
+- Doc: Added Known issue(s) section
 
 ### 1.0.1
 
-Chore: Added icon for VsCode
+- Chore: Added icon for VsCode
 
 ### 1.0.0
 
