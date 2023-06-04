@@ -7,12 +7,10 @@ interface VsCodeFile {
 }
 
 export const hide = (...args: [VsCodeFile, Array<VsCodeFile>]): void => {
-  const [firstFile, files] = args;
+  const [, files] = args;
   const filesToExclude = files
     .filter((file) => typeof file.path === "string")
     .map((file) => file.path);
-
-  filesToExclude.unshift(firstFile.path);
 
   excludeFiles(filesToExclude);
   refresh();
