@@ -35,7 +35,10 @@ export const getConfig = (): WorkspaceConfiguration => {
   return workspace.getConfiguration("hide-files");
 };
 
-export const updateFilesView = () => {
+export const updateFilesView = async () => {
+  // wait to make sure the files are updated
+  await new Promise((resolve) => setTimeout(resolve, 200));
+
   const files = getExludedFiles();
   const exclude = { ...defaultExclude };
 
@@ -75,6 +78,7 @@ export const excludeFiles = (paths: Array<string>) => {
       }
     }
   }
+
   saveExcludeFiles(files);
 };
 
